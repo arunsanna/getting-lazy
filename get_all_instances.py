@@ -6,16 +6,17 @@ def get_regions():
     regions = [region['RegionName'] for region in region_response['Regions']]
     return regions
 
-tagkey = "Owner"
-tagvalue = ['arun.sanna']
+#tagkey = "Owner"
+#tagvalue = ['arun.sanna']
 
 for region in get_regions():
+    print region
     client = boto3.client('ec2', region_name= region)
-    resp = client.describe_instances(
-        Filters=[{'Name': 'tag:'+tagkey, 'Values': tagvalue}])
+    resp = client.describe_instances()
+        #Filters=[{'Name': 'tag:'+tagkey, 'Values': tagvalue}])
+    #print resp
     for m in resp['Reservations']:
         inst = m['Instances']
-        #print inst
         for n in inst:
-            #print n['InstanceId'], region, n['State']['Name']
-            print n['Tags']['Key']
+            print n['InstanceId'], region, n['State']
+    #        print n['Tags']['Key']
