@@ -18,5 +18,5 @@ for region in get_regions():
     for m in resp['Reservations']:
         inst = m['Instances']
         for n in inst:
-            print n['InstanceId'], region, n['State']
+            print n['InstanceId'], region, n['State']['Name'], n['InstanceType']
     #        print n['Tags']['Key']
