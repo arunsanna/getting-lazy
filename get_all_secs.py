@@ -33,7 +33,7 @@ region = "us-east-1"
                         'ToPort': 22,
                         'IpRanges': [
                             {
-                                'CidrIp': '72.196.48.126/32'
+                                'CidrIp': ''
                             }
                        ]
                     }

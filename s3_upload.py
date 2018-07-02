@@ -1,7 +1,7 @@
 import boto3
 import botocore
 
-BUCKET_NAME = 'reg-central'
+BUCKET_NAME = ''
 KEY = 'read.py'
 
 s3 = boto3.resource('s3')
