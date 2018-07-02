@@ -4,8 +4,8 @@ import os
 import zipfile
 
 s3 = boto3.client('s3')
-bucket = 'arun-cloudfront-logs'
-key = 'lambda/627434363107-aws-billing-detailed-line-items-with-resources-and-tags-2016-10.csv.zip'
+bucket = ''
+key = ''
 s3_path = os.path.dirname(key)
 try:
     down_dir = '/tmp/test/target.zip'

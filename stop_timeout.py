@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 def get_regions():
     client = boto3.client('ec2')
     region_response = client.describe_regions()
-    print region_response
+    #print region_response
     regions = [region['RegionName'] for region in region_response['Regions']]
-    print regions
+    #print regions
     return regions
 
 #def read_tags():
@@ -43,9 +43,9 @@ def tag_extract(tags):
             expiration = str.lower(tag['Value'])
     return(name,expiration,project,environment)
 
-def decision(question,id,name,project,expiration):
+def decision(question,id,name):
     while "the answer is invalid":
-        reply = str(raw_input(question+'with id: '+id+' with name: '+name+' under project: '+project+' which expiration: '+expiration+' (y/n): ')).lower().strip()
+        reply = str(raw_input(question+'with id: '+id+' with name: '+name+'  (y/n): ')).lower().strip()
         if reply[0] == 'y':
             return True
         if reply[0] == 'n':
@@ -73,17 +73,18 @@ def get_my_instances():
                     name = 'No Name'
                     tags = None
                     environment = 'undefined'
+                    project = 'undefined'
                     print name+' '+n['InstanceId']+' Running from '+delta+' without tags'
 
                 if tags is None or (n['State']['Name'] == 'running'):
                     #and not (environment == 'production')
                     print 'No tags'
-                #if n['State']['Name'] == "running":
-                #    if decision('Do you want to stop the Instance ',n['InstanceId'],name,project,expiration):
-                #        print "Stoping "+n['InstanceId']
-                #            client.stop_instances(InstanceIds=[str(n['InstanceId'])])
-                #        else:
-                #            print "Leaving "+n['InstanceId']
+                if n['State']['Name'] == "running":
+                    if decision('Do you want to stop the Instance ',n['InstanceId'],name):
+                        print "Stoping "+n['InstanceId']
+                        client.stop_instances(InstanceIds=[str(n['InstanceId'])])
+                    else:
+                        print "Leaving "+n['InstanceId']
                 #    else:
                 #        if decision('Do you want to Start the Instance '+name+' under project '+project+' with instance-id',n['InstanceId'],name,project,expiration):
                 #            print "Starting "+n['InstanceId']
@@ -91,5 +92,5 @@ def get_my_instances():
                 #        else:
                 #            print "Leaving "+n['InstanceId']
 
-#get_my_instances()
-get_regions()
+get_my_instances()
+#get_regions()

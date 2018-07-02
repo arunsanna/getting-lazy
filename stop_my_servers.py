@@ -8,8 +8,8 @@ def get_regions():
     return regions
 
 #print get_regions()
-tagkey = "Owner"
-tagvalue = ['arun.sanna']
+#tagkey = "Owner"
+#tagvalue = ['arun.sanna']
 
 for region in get_regions():
     client = boto3.client('ec2', region_name= region)
